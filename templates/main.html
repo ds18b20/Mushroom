@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>Edible or Poisonous</title>
+      <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
+      <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
+      <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
+      <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
+      <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
+      <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
+      <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
+      <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
+      <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+      <link rel="manifest" href="/manifest.json">
+      <meta name="msapplication-TileColor" content="#ffffff">
+      <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+      <meta name="theme-color" content="#ffffff">
+      <!-- 插入vue -->
+      <script src="./static/js/vue.js"></script>
+      <!-- 插入jquery -->
+      <!-- <script src="./static/js/jquery.js"></script> -->
+      <link rel="stylesheet" href="./static/css/jquery-ui.css">
+	  <link href="./static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+      <link rel="stylesheet" href="./static/css/app.css">
+      <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+      <script src="./static/js/jquery-1.12.4.js"></script>
+      <script src="./static/js/jquery-ui.js"></script>
+      <script>
+         $(function() {
+             $("#tabs").tabs();
+         });
+      </script>
+   </head>
+   <body>
+      <div class="carousel-item active photo">
+         <!--        <img class="d-block w-100" src="https://kaggle2.blob.core.windows.net/datasets-images/478/974/557711140aeab7ca242d1e903c4e058e/dataset-cover.jpg" alt="First slide">-->
+         <img class="d-block w-100" id="mushroom" v-bind:src="image" v-bind:alt="altText">
+      </div>
+      <br>
+      <!-- Tabs -->
+      <div id="tabs" class="tabcontent">
+         <ul>
+            <li id="change_photo_cap"><a v-on:click="change_photo" href="#cap">cap</a></li>
+            <li id="change_photo_gill"><a v-on:click="change_photo" href="#gill">gill</a></li>
+            <li id="change_photo_stalk"><a v-on:click="change_photo" href="#stalk">stalk</a></li>
+            <li id="change_photo_ring"><a v-on:click="change_photo" href="#ring">ring</a></li>
+            <li id="change_photo_veil"><a v-on:click="change_photo" href="#veil">veil</a></li>
+            <li id="change_photo_other"><a v-on:click="change_photo" href="#other">other</a></li>
+         </ul>
+         <!-- XXX -->
+
+            <div id="cap" class="features">
+               <table>
+                  <tr>
+                     <th><strong>cap features:</strong></th>
+                  </tr>
+                  <!-- cap_shape -->
+                  <tr id="cap_shape">
+                     <th>Select cap_shape:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- cap_surface -->
+                  <tr id="cap_surface">
+                     <th>Select cap_surface:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- cap_color -->
+                  <tr id="cap_color">
+                     <th>Select cap_color:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+
+            <!-- gill -->
+            <div id="gill" class="features">
+               <table>
+                  <tr>
+                     <th><strong>gill features:</strong></th>
+                  </tr>
+                  <!-- gill_attachment -->
+                  <tr id="gill_attachment">
+                     <th>Select gill_attachment:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- gill_spacing -->
+                  <tr id="gill_spacing">
+                     <th>Select gill_spacing:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- gill_size -->
+                  <tr id="gill_size">
+                     <th>Select gill_size:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- gill_color -->
+                  <tr id="gill_color">
+                     <th>Select gill_color:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+
+            <!-- stalk -->
+            <div id="stalk" class="features">
+               <table>
+                  <tr>
+                     <th><strong>stalk features:</strong></th>
+                  </tr>
+                  <!-- stalk_shape -->
+                  <tr id="stalk_shape">
+                     <th>Select stalk_shape:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- stalk_root -->
+                  <tr id="stalk_root">
+                     <th>Select stalk_root:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- stalk_surface_above_ring -->
+                  <tr id="stalk_surface_above_ring">
+                     <th>Select stalk_surface_above_ring:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- stalk_surface_below_ring -->
+                  <tr id="stalk_surface_below_ring">
+                     <th>Select stalk_surface_below_ring:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- stalk_color_above_ring -->
+                  <tr id="stalk_color_above_ring">
+                     <th>Select stalk_color_above_ring:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- stalk_color_below_ring -->
+                  <tr id="stalk_color_below_ring">
+                     <th>Select stalk_color_below_ring:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+
+            <!-- ring -->
+            <div id="ring" class="features">
+               <table>
+                  <tr>
+                     <th><strong>ring features:</strong></th>
+                  </tr>
+                  <!-- ring_number -->
+                  <tr id="ring_number">
+                     <th>Select ring_number:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- ring_type -->
+                  <tr id="ring_type">
+                     <th>Select ring_type:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+
+            <!-- veil -->
+            <div id="veil" class="features">
+               <table>
+                  <tr>
+                     <th><strong>veil features:</strong></th>
+                  </tr>
+                  <!-- veil_type -->
+                  <tr id="veil_type">
+                     <th>Select veil_type:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- veil_color -->
+                  <tr id="veil_color">
+                     <th>Select veil_color:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+
+            <!-- other -->
+            <div id="other" class="features">
+               <table>
+                  <tr>
+                     <th><strong>other features:</strong></th>
+                  </tr>
+                  <!-- bruises -->
+                  <tr id="bruises">
+                     <th>Select bruises:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                  <!-- odor -->
+                  <tr id="odor">
+                     <th>Select odor:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                 <!-- spore_print_color -->
+                  <tr id="spore_print_color">
+                     <th>Select spore_print_color:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                 <!-- population -->
+                  <tr id="population">
+                     <th>Select population:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+                 <!-- habitat -->
+                  <tr id="habitat">
+                     <th>Select habitat:</th>
+                     <th>
+                        <select v-model="selected">
+                           <option disabled value="">Please select</option>
+                           <option v-for="option in options" v-bind:value="option.value">
+                              {[ option.text ]}
+                           </option>
+                        </select>
+                     </th>
+                     <th>Selected: {[ selected ]}</th>
+                  </tr>
+               </table>
+            </div>
+      </div>
+      <!-- <br> -->
+<!--
+	<div id="app-5">
+		<p>{[ message ]}</p>
+		<button v-on:click="reverseMessage">edible or poisionous</button>
+	</div>
+	<div id="test">
+		<p>{[ message ]}</p>
+		<button v-on:click="testJSON">test</button>
+	</div>
+-->
+      <div id="run">
+         <p>{[ message ]}</p>
+         <button v-on:click="magic">run</button>
+      </div>
+      <script src="./static/js/app.js"></script>
+	  <script src="./static/js/bootstrap.min.js"></script>
+   </body>
+</html>

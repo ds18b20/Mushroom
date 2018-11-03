@@ -1,0 +1,23 @@
+
+.photo {
+    text-align: center;
+}
+
+#mushroom {
+    width: 25vw;
+    max-width: 350px;
+    height: auto;
+}
+
+.features
+{
+    text-align:left;
+}
+
+table tr th{
+    font-weight:300;
+}
+
+.tabcontent{
+	height: 330px;
+}
