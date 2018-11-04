@@ -1,12 +1,18 @@
+html {
+    font-size: 17px;
+} 
 
 .photo {
     text-align: center;
 }
 
 #mushroom {
-    width: 25vw;
-    max-width: 350px;
+    width: 20vw;
+    max-width: 300px;
     height: auto;
+}
+.nav-item{
+    color:#ffffff;
 }
 
 .features
@@ -18,6 +24,10 @@ table tr th{
     font-weight:300;
 }
 
-.tabcontent{
-	height: 330px;
+#nav-tabContent{
+	height: 305px;
+}
+
+#services{
+    padding-top: 3rem;
 }

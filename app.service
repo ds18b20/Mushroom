@@ -1,0 +1,14 @@
+[Unit]
+Description=mushroom
+After=rc-local.service
+
+[Service]
+Type=simple
+User=root
+Group=root
+WorkingDirectory=/srv/Mushroom
+ExecStart=/usr/bin/python3 server.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

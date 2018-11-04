@@ -886,14 +886,15 @@ var run = new Vue({
 				// 通信実行
 				$.ajax({
 					type: "post", // method = "POST"
-					// url: "http://127.0.0.1:5000/api/test/4351", // POST送信先のURL
-					url: "http://127.0.0.1:5000/api/mushroom/4351", // POST送信先のURL
+					// url: "http://127.0.0.1:5000/api/test/0416", // POST送信先のURL
+					url: "http://52.68.240.227/api/mushroom/0416", // POST送信先のURL
+					// url: "http://127.0.0.1:5000/api/mushroom/0416", // POST送信先のURL
 					data: JSON.stringify(select_data), // JSONデータ本体
 					contentType: 'application/json', // リクエストの Content-Type
 					dataType: "json", // レスポンスをJSONとしてパースする
 					success: function (json_data) { // 200 OK時
 						console.log(json_data);
-						// 0.946 --> 94.6%
+						// 0.123 --> 12.3%
 						run.message = 'Poisonous: ' + 100.0 * json_data.result[1].toFixed(3) + '%';	// poisionous probability
 						// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
 						//            if (!json_data[0]) {    // サーバが失敗を返した場合

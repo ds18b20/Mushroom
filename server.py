@@ -82,4 +82,4 @@ if __name__ == "__main__":
         feature_name = pickle.load(f)
     print('feature_name.shape:\n', feature_name.shape)
     # app.run(host = "0.0.0.0", port = 8080, debug = True)
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="127.0.0.1", debug=True)
