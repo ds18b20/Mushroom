@@ -5,8 +5,19 @@ import pickle
 from model.net import MultiLayerCL
 from model.datasets import MushroomClass
 from model import functions
+import os
+import time
 
 app = Flask(__name__)
+
+filepath = '/home/time' # 文件路径
+fm = '%Y-%m-%d %X'
+
+def get_time():
+    nowtime = time.strftime(fm, time.localtime())
+    with open(filepath, 'a') as fp:
+        fp.write('test:' + nowtime)
+        fp.write('\n')
 
 
 @app.route("/")
@@ -47,6 +58,7 @@ def test(uuid):
 
 
 def classify(rec_dict):
+    network, feature_name = load_model()
     select_name = merge_key_value(rec_dict)
     input_vector = generate_input_vector(select_name, feature_name)
 
@@ -73,13 +85,24 @@ def merge_key_value(rec_dict, symbol='_'):
         ret_list.append(key + symbol + value)
     return ret_list
 
-
-if __name__ == "__main__":
-    with open('pkl/network.pkl', 'rb') as f:
+def load_model():
+    scriptDirectory = os.path.dirname(os.path.realpath(__file__))
+    print('scriptDirectory:', scriptDirectory)
+    network_path = os.path.join(scriptDirectory, 'pkl/network.pkl')
+    print('network_path:', network_path)
+    with open(network_path, 'rb') as f:
         network = pickle.load(f)
-
-    with open('pkl/feature_name.pkl', 'rb') as f:
+        
+    feature_name_path = os.path.join(scriptDirectory, 'pkl/feature_name.pkl')
+    print('feature_name_path:', feature_name_path)
+    with open(feature_name_path, 'rb') as f:
         feature_name = pickle.load(f)
     print('feature_name.shape:\n', feature_name.shape)
+    
+    return network, feature_name
+    
+    
+if __name__ == "__main__":
+
     # app.run(host = "0.0.0.0", port = 8080, debug = True)
-    app.run(host="127.0.0.1", debug=True)
+    app.run(host="127.0.0.1", port = 5000)

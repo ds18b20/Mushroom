@@ -7,7 +7,7 @@ Type=simple
 User=root
 Group=root
 WorkingDirectory=/srv/Mushroom
-ExecStart=/usr/bin/python3 server.py
+ExecStart=python3 server.py
 Restart=always
 
 [Install]
