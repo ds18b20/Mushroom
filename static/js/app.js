@@ -10,12 +10,12 @@ var feature_obj = {
 };
 
 // change photo
-var mushroom = new Vue({
+var mushroom_img = new Vue({
 	delimiters: ['{[', ']}'],
-	el: '#mushroom',
+	el: '#mushroom_img',
 	data: {
-		name: 'mushroom',
-		altText: 'mushroom',
+		name: 'mushroom_img',
+		altText: 'mushroom_img',
 		image: './static/img/' + 'cap.png',
 	}
 });
@@ -28,7 +28,7 @@ var change_photo_cap = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 			//      // `this` 在方法里指向当前 Vue 实例
 			//      alert('Hello ' + this.name + '!')
 			//      // `event` 是原生 DOM 事件
@@ -47,7 +47,7 @@ var change_photo_gill = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 		}
 	}
 });
@@ -60,7 +60,7 @@ var change_photo_stalk = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 		}
 	}
 });
@@ -73,7 +73,7 @@ var change_photo_ring = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 		}
 	}
 });
@@ -86,7 +86,7 @@ var change_photo_veil = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 		}
 	}
 });
@@ -100,7 +100,7 @@ var change_photo_other = new Vue({
 	// 在 `methods` 对象中定义方法
 	methods: {
 		change_photo: function (event) {
-			mushroom.image = './static/img/' + this.name;
+			mushroom_img.image = './static/img/' + this.name;
 		}
 	}
 });
@@ -864,8 +864,8 @@ var run = new Vue({
 		magic: function () {
 			run.message = 'Tasting many mushrooms...';
 			// 多重送信を防ぐため通信完了までボタンをdisableにする
-			// var button = $(this);
-			// button.attr("disabled", true);
+			var button = $("#run_button");
+			button.prop('disabled', true);
 
 			// 各フィールドから値を取得してJSONデータを作成
 			var select_data = {};
@@ -883,19 +883,19 @@ var run = new Vue({
 				}
 				console.log('show select_data:');
 				console.log(select_data);
-				// 通信実行
+				// ajax function for POST communication
 				$.ajax({
 					type: "post", // method = "POST"
 					// url: "http://127.0.0.1:5000/api/test/0416", // POST送信先のURL
-					url: "http://52.68.240.227/api/mushroom/0416", // POST送信先のURL
-					// url: "http://127.0.0.1:5000/api/mushroom/0416", // POST送信先のURL
+					url: "http://127.0.0.1:5000/api/mushroom/0416", // POST送信先のURL
+                    // url: "http://52.68.240.227/api/mushroom/0416", // POST送信先のURL
 					data: JSON.stringify(select_data), // JSONデータ本体
 					contentType: 'application/json', // リクエストの Content-Type
 					dataType: "json", // レスポンスをJSONとしてパースする
-					success: function (json_data) { // 200 OK時
+					success: function (json_data) { // if 200 OK
 						console.log(json_data);
 						// 0.123 --> 12.3%
-						run.message = 'Poisonous: ' + 100.0 * json_data.result[1].toFixed(3) + '%';	// poisionous probability
+						run.message = 'Poisonous: ' + (100.0 * json_data.result[1]).toFixed(3) + '%'; // poisionous probability
 						// JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
 						//            if (!json_data[0]) {    // サーバが失敗を返した場合
 						//                alert("Transaction error. " + json_data[1]);
@@ -904,12 +904,13 @@ var run = new Vue({
 						// 成功時処理
 						//                        location.reload();
 					},
-					error: function () { // HTTPエラー時
+					error: function () { // got HTTP error
 						alert("Server Error. Pleasy try again later.");
 					},
-					complete: function () { // 成功・失敗に関わらず通信が終了した際の処理
-						// button.attr("disabled", false);  // ボタンを再び enableにする
-						console.log('OK');
+					complete: function () { // process for error or not
+						// button.attr("disabled", false);
+						// console.log('OK');
+                        button.removeAttr("disabled");  // ボタンを再び enableにする
 					}
 				});
 			} else {
@@ -917,4 +918,19 @@ var run = new Vue({
 			}
 		}
 	}
+});
+
+$(document).ready(function () {
+	$("#show_hide_results").click(function () {
+		if ($(".feature_selection_result").css("display") == "none") {
+			$(".feature_selection_result").css("display", "inline-block");
+			// $(this).text("hide selection results");
+			$(this).html("<svg height='12' width='12'> <circle cx='6' cy='6' r='5' stroke='white' stroke-width='1' fill='#1d809f' fill-opacity='0.0'/> <circle cx='6' cy='6' r='1.5' stroke='white' stroke-width='1' fill='#ffffff' fill-opacity='0.9'/> </svg> selection result");
+		} else {
+			$(".feature_selection_result").css("display", "none");
+			// $(this).text("show selection results");
+			$(this).html("<svg height='12' width='12'> <circle cx='6' cy='6' r='5' stroke='white' stroke-width='1' fill='#1d809f' fill-opacity='0.0'/> <circle cx='6' cy='6' r='1.5' stroke='white' stroke-width='0' fill='#ffffff' fill-opacity='0.0'/> </svg> selection result");
+		}
+		// $(".feature_selection_result").toggle();
+	});
 });

@@ -1,33 +1,104 @@
 html {
-    font-size: 17px;
-} 
-
-.photo {
-    text-align: center;
+	font-size: 17px;
 }
 
-#mushroom {
-    width: 20vw;
-    max-width: 300px;
-    height: auto;
-}
-.nav-item{
-    color:#ffffff;
+/* header color: grey */
+.masthead {
+	background-color: #efefef;
 }
 
-.features
-{
-    text-align:left;
+/* modify mushroom image size */
+#mushroom_img {
+	width: 15vw;
+	max-width: 300px;
+	height: auto;
 }
 
-table tr th{
-    font-weight:300;
+/* text color: white */
+.nav-item {
+	color: #ffffff;
 }
 
-#nav-tabContent{
-	height: 305px;
+/* left align text contents */
+.features {
+	text-align: left;
 }
 
-#services{
-    padding-top: 3rem;
+/* feature selection area */
+#nav-tabContent {
+	height: 350px;
+}
+
+#services {
+	padding-top: 3rem;
+}
+
+.form-control {
+	display: inline-block;
+	width: 40vw;
+}
+
+.feature_selection {
+	height: 50px;
+}
+
+.feature_selection_title {
+	margin-bottom: 10px;
+	display: inline-block;
+	width: 210px;
+}
+
+.feature_selection_result {
+	display: none;
+	width: 27px;
+	line-height: 25px;
+	text-align: center;
+	border-radius: 50%;
+	border: 1px solid #fff;
+	margin-left: 30px;
+	box-sizing: border-box;
+}
+
+.text {
+	text-align: right;
+	margin: 10px 0;
+}
+
+.text:hover {
+	opacity: 0.8;
+	cursor: pointer;
+}
+
+@media screen and (max-width: 600px) {
+	.selection_title {
+		display: block;
+		color: #ff0;
+	}
+	#nav-tabContent {
+		height: auto;
+	}
+	.form-control {
+		display: inline-block;
+		width: 60vw;
+	}
+	.feature_selection {
+		height: auto;
+	}
+	.feature_selection_title {
+		margin-bottom: 10px;
+	}
+	.feature_selection_result {
+		display: none;
+		width: 27px;
+		line-height: 25px;
+		text-align: center;
+		border-radius: 50%;
+		border: 1px solid #fff;
+		margin-left: 30px;
+		box-sizing: border-box;
+	}
+}
+
+.closed {
+	display: none;
 }

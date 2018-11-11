@@ -128,13 +128,10 @@ class MultiLayerRE(object):
                 grads['gamma' + str(idx)] = numerical_gradient(loss_W, self.params['gamma' + str(idx)])
                 grads['beta' + str(idx)] = numerical_gradient(loss_W, self.params['beta' + str(idx)])
         return grads
-
-    def accuracy(self, x_batch, t_batch):
-        y = self.predict(x_batch, train_flag=False)
-        y = np.argmax(y, axis=1)
-
-        accuracy = np.mean(y == t_batch.flatten())
-        return accuracy
+        
+    def update_params(self, params):
+        for key in params.keys():
+            self.params[key] = params[key]
 
         
 class MultiLayerCL(object):
@@ -258,6 +255,15 @@ class MultiLayerCL(object):
                 grads['gamma' + str(idx)] = numerical_gradient(loss_W, self.params['gamma' + str(idx)])
                 grads['beta' + str(idx)] = numerical_gradient(loss_W, self.params['beta' + str(idx)])
         return grads
+        
+    def update_params(self, params):
+        for key in params.keys():
+            np.copyto(self.params[key], params[key])
+            # self.params[key] = params[key]  # id of self.params[key] will be changed!!!
+            
+    def update_BN_values(self, BN_dict):
+        for BN_name, mean_std_value in BN_dict.items():
+            self.layers[BN_name].running_mean, self.layers[BN_name].running_var = mean_std_value
 
     def accuracy(self, x_batch, t_batch):
         y = self.predict(x_batch, train_flag=False)

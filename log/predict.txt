@@ -1,2 +1,0 @@
-1. read net_structure, W/b from pickle
-2. make prediction and return True/False, percentage(softmax out)

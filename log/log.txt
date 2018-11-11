@@ -1,7 +1,0 @@
-
-save dict to .npy
-https://stackoverflow.com/questions/40219946/python-save-dictionaries-through-numpy-save
-
-
-WARNING:werkzeug: * Debugger is active!
-https://stackoverflow.com/questions/44405708/flask-doesnt-print-to-console

@@ -1,5 +1,0 @@
-1. import class: MushroomClassification
-2. make instance: mushnet
-3. load net structure, W/b: mushnet.load_paras()
-4. get return of True/False percentage: mushnet.classify()
-5. jsonfy(result)

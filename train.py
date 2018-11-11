@@ -34,7 +34,7 @@ if __name__ == '__main__':
     print('train_x.shape:', train_x.shape)
     print('train_y.shape:', train_y.shape)
 
-    max_iterations = 2000
+    max_iterations = 5000
     batch_size = 128
     # initialize network optimizer
     weight_init_types = {'std=0.01': 0.01, 'Xavier': 'sigmoid', 'He': 'relu'}
@@ -45,7 +45,7 @@ if __name__ == '__main__':
                         'output_size': 2,
                         'weight_decay_lambda': 1e-6,
                         'use_dropout': True,
-                        'dropout_ratio': 0.05,
+                        'dropout_ratio': 0.1,
                         'use_batchnorm': True}
     network = MultiLayerCL(**network_structure)
 
@@ -85,13 +85,26 @@ if __name__ == '__main__':
             test_loss_list.append(test_loss)
             print("train loss: {:.6f}".format(train_loss), "test loss: {:.6f}".format(test_loss))
     show_accuracy_loss(train_acc_list, test_acc_list, train_loss_list, test_loss_list)
-    np.save('npy/network.params.npy', network.params)
-    np.save('npy/network_structure.npy', network_structure)
+    # np.save('npy/network.params.npy', network.params)
+    # np.save('npy/network_structure.npy', network_structure)
     
-    np.save('npy/feature_name.npy', mc_data.column_name)
+    # np.save('npy/feature_name.npy', mc_data.column_name)
     
     with open('pkl/network.pkl', 'wb') as f:
         pickle.dump(network, f)
+        
+    with open('pkl/network.params.pkl', 'wb') as f:
+        pickle.dump(network.params, f)
+        
+    with open('pkl/network_structure.pkl', 'wb') as f:
+        pickle.dump(network_structure, f)
     
     with open('pkl/feature_name.pkl', 'wb') as f:
         pickle.dump(mc_data.column_name, f)
+        
+    BN_name_list = [layer_name for layer_name in network.layers.keys() if 'BatchNorm' in layer_name]
+    BN_dict = {}
+    for BN_name in BN_name_list:
+        BN_dict[BN_name] = [network.layers[BN_name].running_mean, network.layers[BN_name].running_var]
+    with open('pkl/batch_norm_mean_std.pkl', 'wb') as f:
+        pickle.dump(BN_dict, f)
