@@ -7,6 +7,14 @@ html {
  #services {
  	height: auto;
  }
+ #run_button {
+ 	width: 250px;
+ 	height: 70px;
+ 	margin: auto;
+ }
+ #show_hide_results {
+ 	text-align: center;
+ }
 /* header color: grey */
 .masthead {
 	background-color: #efefef;
