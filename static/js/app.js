@@ -887,8 +887,8 @@ var run = new Vue({
 				$.ajax({
 					type: "post", // method = "POST"
 					// url: "http://127.0.0.1:5000/api/test/0416", // POST送信先のURL
-					url: "http://127.0.0.1:5000/api/mushroom/0416", // POST送信先のURL
-                    // url: "http://52.68.240.227/api/mushroom/0416", // POST送信先のURL
+					// url: "http://127.0.0.1:5000/api/mushroom/0416", // POST送信先のURL can only be used locally 
+                    url: "http://52.68.240.227/api/mushroom/0416", // POST送信先のURL
 					data: JSON.stringify(select_data), // JSONデータ本体
 					contentType: 'application/json', // リクエストの Content-Type
 					dataType: "json", // レスポンスをJSONとしてパースする
